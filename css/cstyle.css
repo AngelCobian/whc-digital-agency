@@ -1,0 +1,57 @@
+.bg{
+    min-height: 50em;
+background-repeat: no-repeat;
+background-size:100% 100%;
+background-position: center;
+}
+.site-title, .site-description{
+    /* padding-left: 30%; */
+
+}
+.site-title{
+    padding-top: 25rem;
+    font-weight: bold;
+    font-size: 30px;
+
+}
+
+.service-box{
+    padding: 12px;
+    
+}
+hr{
+    width: 12px;
+}
+i.custom{
+    font-size: 50px;
+}
+.p-100{
+    padding: 50px 0;
+}
+.font{
+    font-size: 50px;
+    font-weight: bold;
+}
+#testimony{
+    /* height: 45em; */
+    padding: 7em 0;
+}
+.map{
+    height: 26rem;
+}
+.social{
+    border: 1px solid;
+    /* background-color: black; */
+    padding: 10px 14px;
+    
+}
+#newsletter{
+    height: 75vh;
+    padding-top: 14em;
+}
+.cfooter{
+    padding-bottom: 20px;
+}
+.services-box  img{
+    height: 15em;
+}

@@ -44,9 +44,11 @@ if ( ! function_exists( 'whc_da_setup' ) ) :
 
 		// This theme uses wp_nav_menu() in one location.
 		register_nav_menus( array(
+			'primary' => __( 'Primary Menu', 'whc-da' ),
 			'menu-1' => esc_html__( 'Primary', 'whc-da' ),
 		) );
 
+		
 		/*
 		 * Switch default core markup for search form, comment form, and comments
 		 * to output valid HTML5.
@@ -113,6 +115,16 @@ function whc_da_widgets_init() {
 		'before_title'  => '<h2 class="widget-title">',
 		'after_title'   => '</h2>',
 	) );
+	register_sidebar( array(
+		'name'          => esc_html__( 'Sidebar', 'whc-da' ),
+		'id'            => 'sidebar-2',
+		'description'   => esc_html__( 'Add widgets here.', 'whc-da' ),
+		'before_widget' => '<section id="%1$s" class="widget %2$s">',
+		'after_widget'  => '</section>',
+		'before_title'  => '<h2 class="widget-title">',
+		'after_title'   => '</h2>',
+	));
+	
 }
 add_action( 'widgets_init', 'whc_da_widgets_init' );
 
@@ -120,9 +132,17 @@ add_action( 'widgets_init', 'whc_da_widgets_init' );
  * Enqueue scripts and styles.
  */
 function whc_da_scripts() {
+	wp_enqueue_style( 'whc-bootstrap_css', get_template_directory_uri() . '/css/bootstrap.min.css' );
+
 	wp_enqueue_style( 'whc-da-style', get_stylesheet_uri() );
 
+	wp_enqueue_style( 'cstyle', get_template_directory_uri(  ) . '/css/cstyle.css' );
+
 	wp_enqueue_script( 'whc-da-navigation', get_template_directory_uri() . '/js/navigation.js', array(), '20151215', true );
+
+	wp_enqueue_script( 'jquery' );
+	
+	wp_enqueue_script( 'whc-bootstrap_js', get_template_directory_uri() . '/js/bootstrap.min.js', array( 'jquery' ), '20170710', true );
 
 	wp_enqueue_script( 'whc-da-skip-link-focus-fix', get_template_directory_uri() . '/js/skip-link-focus-fix.js', array(), '20151215', true );
 
@@ -131,6 +151,16 @@ function whc_da_scripts() {
 	}
 }
 add_action( 'wp_enqueue_scripts', 'whc_da_scripts' );
+
+require_once get_template_directory() . '/class-wp-bootstrap-navwalker.php';
+
+if ( ! file_exists( get_template_directory() . '/class-wp-bootstrap-navwalker.php' ) ) {
+	// file does not exist... return an error.
+	return new WP_Error( 'class-wp-bootstrap-navwalker-missing', __( 'It appears the class-wp-bootstrap-navwalker.php file may be missing.', 'wp-bootstrap-navwalker' ) );
+} else {
+	// file exists... require it.
+	require_once get_template_directory() . '/class-wp-bootstrap-navwalker.php';
+}
 
 /**
  * Implement the Custom Header feature.
